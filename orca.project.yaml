@@ -1,0 +1,26 @@
+composeFiles:
+  primary: docker-compose.yml
+
+envFiles:
+  - path: .env
+
+hosts:
+  - admin.orca-fictorg.test
+
+extensions:
+  - name: env
+    type: syncFile
+    source: .env.example
+    target: .env
+    description: Create .env from .env.example
+
+hooks:
+  clone:
+    post:
+      - extension: env
+      - extension: install-deps
+        scope: workspace
+  # Skipped while admin is disabled, as it isn't started
+  up:
+    pre:
+      - extension: env

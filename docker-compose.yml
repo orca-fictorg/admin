@@ -1,0 +1,11 @@
+services:
+  admin:
+    image: nginx:alpine
+    volumes:
+      - ./html:/usr/share/nginx/html:ro
+    labels:
+      traefik.enable: "true"
+      traefik.http.routers.admin.rule: Host(`admin.orca-fictorg.test`)
+      traefik.http.routers.admin.entrypoints: websecure
+      traefik.http.routers.admin.tls: "true"
+      traefik.http.services.admin.loadbalancer.server.port: "80"
