@@ -14,12 +14,15 @@ extensions:
     target: .env
     description: Create .env from .env.example
 
+  - name: install-deps
+    command: make deps
+    description: Install admin's dependencies
+
 hooks:
   clone:
     post:
       - extension: env
       - extension: install-deps
-        scope: workspace
   # Skipped while admin is disabled, as it isn't started
   up:
     pre:
